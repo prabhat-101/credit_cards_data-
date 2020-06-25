@@ -1,0 +1,45 @@
+import pandas as pd 
+import numpy as np 
+
+
+data.nunique()
+#Total Applications
+print('Total Applications:')
+metric1= data['Application id'].nunique()
+print(data['Application id'].nunique())
+
+#Approved Applications
+approved_apps=data['tdecision']=='Approve'
+print('Approved Applications:')
+metric2= data[approved_apps]['Application id'].nunique()
+print(data[approved_apps]['Application id'].nunique())
+
+
+#Booked Applcations
+print('Booked Applications:')
+metric3 = data[data['Booking']=='Y']['Application id'].count()
+print(data[data['Booking']=='Y']['Application id'].count())
+
+#Approval Rate
+print('Approval Rate:')
+Approvalr=metric1/metric2
+print(Approvalr)
+
+#bOOKING rATE
+print('Booking Rate:')
+Bookingr=metric3/metric2
+print(Bookingr)
+
+#New booking amount 
+
+print('New Booking Amt')
+new_booking_amount=data['Booking_Amt'].sum()-data[data['Booking']=='Y']['Booking_Amt'].sum()
+print(new_booking_amount)
+
+final_metric=pd.DataFrame({'Total Apllications':metric1,
+                           'Approved Applications':metric2, 
+                           'Booked Applications':metric3,
+                           'Approval Rate':Approvalr,
+                           'Booking Rate': Bookingr, 
+                           'New Booking amount': new_booking_amount},index=[1])
+final_metric
